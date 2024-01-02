@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.cyberdata.management.config.exceptions.ResourceNotFoundException;
 import com.cyberdata.management.model.Expense;
 import com.cyberdata.management.repository.ExpenseRepository;
 
@@ -17,7 +18,7 @@ public class ExpenseService {
 	
 		// Find Expense by id
 		public Expense findById(String id) {
-			return expenseRepository.findById(id).orElseThrow(() -> new RuntimeException("Resource not found: " + id));
+			return expenseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found with id: " + id));
 		}
 		
 		// Find All Expenses in a List
@@ -32,14 +33,14 @@ public class ExpenseService {
 		
 		// Update Expense
 		public Expense updateExpense(String id, Expense updateExpense) {
-			Expense expenseEntity = expenseRepository.findById(id).orElseThrow(() -> new RuntimeException("Resource not found: " + id));
+			Expense expenseEntity = expenseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found with id: " + id));
 			updateExpense(expenseEntity, updateExpense);
 			return expenseRepository.save(expenseEntity);
 		}
 		
 		// Delete Expense
 		public void deleteExpense(String id) {
-			Expense expenseEntity = expenseRepository.findById(id).orElseThrow(() -> new RuntimeException("Resource not found: " + id));
+			Expense expenseEntity = expenseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found with id: " + id));
 			expenseRepository.delete(expenseEntity);
 		}
 
