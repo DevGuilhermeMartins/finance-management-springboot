@@ -26,7 +26,7 @@ public class AccountService {
 	}
 	
 	// Creating Account
-	public Account createAccount(Account account) {
+	public Account saveAccount(Account account) {
 		return accountRepository.save(account);
 	}
 	
