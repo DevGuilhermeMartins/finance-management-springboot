@@ -2,7 +2,6 @@ package com.cyberdata.management.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,7 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "account")
 @Table(name = "account")
 @Data
 @AllArgsConstructor
@@ -26,8 +25,8 @@ public class Account implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	private String username;
 	
@@ -35,11 +34,11 @@ public class Account implements Serializable{
 	
 	private String password;
 	
-	@OneToMany(mappedBy = "account")
-	private List<Expense> expenses = new ArrayList<>();
-	
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate registerDate;
 	
 	private String role;
+	
+	@OneToMany(mappedBy = "account")
+	private List<Expense> expenses;
 }

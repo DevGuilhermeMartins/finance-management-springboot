@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "expense")
 @Table(name = "expense")
 @Data
 @AllArgsConstructor
@@ -28,8 +27,8 @@ public class Expense implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	@ManyToOne
 	@JoinColumn(name = "account_id")
@@ -44,7 +43,8 @@ public class Expense implements Serializable{
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime timeOfExpense;
 	
-	@OneToOne(mappedBy = "expense", cascade = CascadeType.ALL)
+	@OneToOne
+	@JoinColumn(name = "category_expense_id")
 	private CategoryExpense category;
 	
 	private String localExpense;
