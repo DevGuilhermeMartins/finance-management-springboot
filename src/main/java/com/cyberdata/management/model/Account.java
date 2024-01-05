@@ -2,6 +2,8 @@ package com.cyberdata.management.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -9,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +34,9 @@ public class Account implements Serializable{
 	private String email;
 	
 	private String password;
+	
+	@OneToMany(mappedBy = "account")
+	private List<Expense> expenses = new ArrayList<>();
 	
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate registerDate;
