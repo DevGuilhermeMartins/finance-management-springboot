@@ -7,8 +7,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,5 +50,33 @@ public class AccountController {
 	public List<AccountDTO> findAllAccounts(){
 		return accountService.findAllAccounts().stream().map(account -> modelMapper.map(account, AccountDTO.class))
 				.collect(Collectors.toList());
+	}
+	
+	@GetMapping("/{email}")
+	public ResponseEntity<AccountDTO> findAccountByEmail(@PathVariable String email){
+		Account accountModel = accountService.findByEmail(email);
+		
+		// Convert Entity to DTO
+		AccountDTO accountResponse = modelMapper.map(accountModel, AccountDTO.class);
+		
+		return ResponseEntity.ok().body(accountResponse);
+	}
+	
+	@PutMapping("/{email}")
+	public ResponseEntity<AccountDTO> updateAccount(@PathVariable String email, @RequestBody AccountDTO updateAccount){
+		Account accountModel = accountService.findByEmail(email);
+		
+		Account accountUpdate = accountService.updateAccount(email, accountModel);
+		
+		// Convert Entity to DTO
+		AccountDTO accountResponse = modelMapper.map(accountUpdate, AccountDTO.class);
+		
+		return ResponseEntity.ok().body(accountResponse);
+	}
+	
+	@DeleteMapping("/{email}")
+	public ResponseEntity<Void> deleteAccount(@PathVariable String email){
+		accountService.deleteAccount(email);
+		return ResponseEntity.noContent().build();
 	}
 }

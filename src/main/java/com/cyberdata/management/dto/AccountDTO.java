@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class AccountDTO {
 
 	private String username;
+	private String email;
 	private LocalDate registerDate;
 	private List<Expense> expenses;
 }
