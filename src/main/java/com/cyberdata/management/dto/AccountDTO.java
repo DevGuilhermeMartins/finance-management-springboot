@@ -1,6 +1,9 @@
 package com.cyberdata.management.dto;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.cyberdata.management.model.Expense;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,4 +16,5 @@ public class AccountDTO {
 
 	private String username;
 	private LocalDate registerDate;
+	private List<Expense> expenses;
 }

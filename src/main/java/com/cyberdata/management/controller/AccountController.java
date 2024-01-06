@@ -1,9 +1,13 @@
 package com.cyberdata.management.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,5 +41,11 @@ public class AccountController {
 		AccountDTO accountResponse = modelMapper.map(accountSave, AccountDTO.class);
 		
 		return new ResponseEntity<>(accountResponse, HttpStatus.CREATED);
+	}
+	
+	@GetMapping
+	public List<AccountDTO> findAllAccounts(){
+		return accountService.findAllAccounts().stream().map(account -> modelMapper.map(account, AccountDTO.class))
+				.collect(Collectors.toList());
 	}
 }

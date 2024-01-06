@@ -5,5 +5,6 @@ CREATE TABLE expense (
     quantity INT,
     time_of_expense TIMESTAMP,
     local_expense VARCHAR(255),
-    category_expense_id BIGINT REFERENCES category_expense(id)
+    category_expense_id BIGINT REFERENCES category_expense(id),
+    account_id BIGINT REFERENCES account(id)
 );
