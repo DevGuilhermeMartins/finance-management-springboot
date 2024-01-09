@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.cyberdata.management.config.exceptions.ResourceNotFoundException;
 import com.cyberdata.management.model.Account;
 import com.cyberdata.management.repository.AccountRepository;
 
@@ -17,7 +18,7 @@ public class AccountService {
 	
 	// Find Account by Id
 	public Account findById(Long id) {
-		return accountRepository.findById(id);
+		return accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found: " + id));
 	}
 	
 	// Find All Accounts in a List
@@ -32,14 +33,14 @@ public class AccountService {
 	
 	// Update Account
 	public Account updateAccount(Long id, Account updateAccount) {
-		Account accountEntity = accountRepository.findById(id);
+		Account accountEntity = accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found: " + id));
 		updateAccount(accountEntity, updateAccount);
 		return accountRepository.save(accountEntity);
 	}
 	
 	// Delete Account
 	public void deleteAccount(Long id) {
-		Account accountEntity = accountRepository.findById(id);
+		Account accountEntity = accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found: " + id));
 		accountRepository.delete(accountEntity);
 	}
 
