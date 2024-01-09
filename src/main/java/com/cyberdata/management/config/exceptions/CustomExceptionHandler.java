@@ -12,4 +12,9 @@ public class CustomExceptionHandler {
 	public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
 	}
+	
+	@ExceptionHandler(DatabaseException.class)
+	public ResponseEntity<String> database(DatabaseException ex){
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+	}
 }
