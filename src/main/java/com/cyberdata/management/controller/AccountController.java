@@ -52,9 +52,9 @@ public class AccountController {
 				.collect(Collectors.toList());
 	}
 	
-	@GetMapping("/{email}")
-	public ResponseEntity<AccountDTO> findAccountByEmail(@PathVariable String email){
-		Account accountModel = accountService.findByEmail(email);
+	@GetMapping("/{id}")
+	public ResponseEntity<AccountDTO> findAccountById(@PathVariable Long id){
+		Account accountModel = accountService.findById(id);
 		
 		// Convert Entity to DTO
 		AccountDTO accountResponse = modelMapper.map(accountModel, AccountDTO.class);
@@ -62,11 +62,11 @@ public class AccountController {
 		return ResponseEntity.ok().body(accountResponse);
 	}
 	
-	@PutMapping("/{email}")
-	public ResponseEntity<AccountDTO> updateAccount(@PathVariable String email, @RequestBody AccountDTO updateAccount){
-		Account accountModel = accountService.findByEmail(email);
+	@PutMapping("/{id}")
+	public ResponseEntity<AccountDTO> updateAccount(@PathVariable Long id, @RequestBody AccountDTO updateAccount){
+		Account accountModel = accountService.findById(id);
 		
-		Account accountUpdate = accountService.updateAccount(email, accountModel);
+		Account accountUpdate = accountService.updateAccount(id, accountModel);
 		
 		// Convert Entity to DTO
 		AccountDTO accountResponse = modelMapper.map(accountUpdate, AccountDTO.class);
@@ -74,9 +74,9 @@ public class AccountController {
 		return ResponseEntity.ok().body(accountResponse);
 	}
 	
-	@DeleteMapping("/{email}")
-	public ResponseEntity<Void> deleteAccount(@PathVariable String email){
-		accountService.deleteAccount(email);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteAccount(@PathVariable Long id){
+		accountService.deleteAccount(id);
 		return ResponseEntity.noContent().build();
 	}
 }

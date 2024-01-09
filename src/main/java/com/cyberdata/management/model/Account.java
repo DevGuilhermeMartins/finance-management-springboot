@@ -1,6 +1,7 @@
 package com.cyberdata.management.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public class Account implements Serializable{
 	private String email;
 	
 	private String password;
+	
+	private BigDecimal income;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate registerDate;

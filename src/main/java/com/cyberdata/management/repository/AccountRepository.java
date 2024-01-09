@@ -6,5 +6,5 @@ import com.cyberdata.management.model.Account;
 
 public interface AccountRepository extends JpaRepository<Account, String>{	
 	
-	Account findByEmail(String email);
+	Account findById(Long id);
 }

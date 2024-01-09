@@ -15,9 +15,9 @@ public class AccountService {
 
 	private final AccountRepository accountRepository;
 	
-	// Using Email to find account
-	public Account findByEmail(String email) {
-		return accountRepository.findByEmail(email);
+	// Find Account by Id
+	public Account findById(Long id) {
+		return accountRepository.findById(id);
 	}
 	
 	// Find All Accounts in a List
@@ -31,15 +31,15 @@ public class AccountService {
 	}
 	
 	// Update Account
-	public Account updateAccount(String email, Account updateAccount) {
-		Account accountEntity = accountRepository.findByEmail(email);
+	public Account updateAccount(Long id, Account updateAccount) {
+		Account accountEntity = accountRepository.findById(id);
 		updateAccount(accountEntity, updateAccount);
 		return accountRepository.save(accountEntity);
 	}
 	
 	// Delete Account
-	public void deleteAccount(String email) {
-		Account accountEntity = accountRepository.findByEmail(email);
+	public void deleteAccount(Long id) {
+		Account accountEntity = accountRepository.findById(id);
 		accountRepository.delete(accountEntity);
 	}
 
