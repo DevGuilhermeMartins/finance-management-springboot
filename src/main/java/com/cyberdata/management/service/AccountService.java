@@ -22,7 +22,7 @@ public class AccountService {
 	
 	// Find Account by Id
 	public Account findById(Long id) {
-		return accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		return accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found: " + id));
 	}
 	
 	// Find All Accounts in a List
@@ -38,21 +38,21 @@ public class AccountService {
 	// Update Account
 	public Account updateAccount(Long id, Account updateAccount) {
 		try {
-		Account accountEntity = accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		Account accountEntity = accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found: " + id));
 		updateAccount(accountEntity, updateAccount);
 		return accountRepository.save(accountEntity);
 		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException(id); 
+			throw new ResourceNotFoundException("Resource not found: " + id); 
 		}
 	}
 	
 	// Delete Account
 	public void deleteAccount(Long id) {
 		try {
-		Account accountEntity = accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		Account accountEntity = accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Resource not found: " + id));
 		accountRepository.delete(accountEntity);
 		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException("Resource not found: " + id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException(e.getMessage());
 		}

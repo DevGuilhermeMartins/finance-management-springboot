@@ -38,7 +38,7 @@ public class ExpenseController {
 		Expense expenseModel = modelMapper.map(expenseDTO, Expense.class);
 
 		// Use the method to save the expense
-		Expense expenseSave = expenseService.createExpense(expenseModel);
+		Expense expenseSave = expenseService.saveExpense(expenseModel);
 
 		// Convert Entity to DTO
 		ExpenseDTO expenseResponse = modelMapper.map(expenseSave, ExpenseDTO.class);
@@ -53,7 +53,7 @@ public class ExpenseController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ExpenseDTO> findExpenseById(@PathVariable String id) {
+	public ResponseEntity<ExpenseDTO> findExpenseById(@PathVariable Long id) {
 		Expense expenseModel = expenseService.findById(id);
 
 		// Convert Entity to DTO
@@ -63,7 +63,7 @@ public class ExpenseController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ExpenseDTO> updateExpense(@PathVariable String id, @RequestBody ExpenseDTO updateExpense) {
+	public ResponseEntity<ExpenseDTO> updateExpense(@PathVariable Long id, @RequestBody ExpenseDTO updateExpense) {
 		Expense expenseModel = expenseService.findById(id);
 
 		Expense expenseUpdate = expenseService.updateExpense(id, expenseModel);
@@ -75,7 +75,7 @@ public class ExpenseController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteExpense(@PathVariable String id) {
+	public ResponseEntity<Void> deleteExpense(@PathVariable Long id) {
 		expenseService.deleteExpense(id);
 		return ResponseEntity.noContent().build();
 	}

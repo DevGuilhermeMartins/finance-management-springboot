@@ -1,10 +1,12 @@
 package com.cyberdata.management.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cyberdata.management.model.CategoryExpense;
 
-public interface CategoryExpenseRepository extends JpaRepository<CategoryExpense, String>{
+public interface CategoryExpenseRepository extends JpaRepository<CategoryExpense, Long>{
 
-	CategoryExpense findByCategory(String category);
+	Optional<CategoryExpense> findByCategory(String category);
 }

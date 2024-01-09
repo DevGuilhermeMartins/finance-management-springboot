@@ -53,7 +53,7 @@ public class CategoryExpenseController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<CategoryExpenseDTO> findCategoryExpenseById(@PathVariable String id) {
+	public ResponseEntity<CategoryExpenseDTO> findCategoryExpenseById(@PathVariable Long id) {
 		CategoryExpense categoryCategoryExpenseModel =  categoryExpenseService.findById(id);
 
 		// Convert Entity to DTO
@@ -63,7 +63,7 @@ public class CategoryExpenseController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<CategoryExpenseDTO> updateCategoryExpense(@PathVariable String id, @RequestBody CategoryExpenseDTO updateCategoryExpense) {
+	public ResponseEntity<CategoryExpenseDTO> updateCategoryExpense(@PathVariable Long id, @RequestBody CategoryExpenseDTO updateCategoryExpense) {
 		CategoryExpense categoryCategoryExpenseModel = categoryExpenseService.findById(id);
 
 		CategoryExpense categoryCategoryExpenseUpdate = categoryExpenseService.updateCategoryExpense(id, categoryCategoryExpenseModel);
@@ -75,7 +75,7 @@ public class CategoryExpenseController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteCategoryExpense(@PathVariable String id) {
+	public ResponseEntity<Void> deleteCategoryExpense(@PathVariable Long id) {
 		categoryExpenseService.deleteCategoryExpense(id);
 		return ResponseEntity.noContent().build();
 	}
