@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres:16.1-alpine3.19
+    container_name: db
+    environment:
+      - POSTGRES_PASSWORD=311005Ge
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=finance_management_db
+    ports:
+      - 5430:5432
+    networks:
+      - cyberdata
+      
+  db-flyway:
+    image: flyway/flyway:10.5.0-alpine
+    container_name: db-flyway
+    networks:
+      - cyberdata
+    command: -url=jdbc:postgres://db -schemas=finance_management_db -user=postgres -password=311005Ge -connectRetries=60 migrate
+    depends_on:
+      - db
+      
+  finance-management-service:
+    image: finance-management-service
+    container_name: finance-management-service
+    build:
+      context: .
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/finance_management_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=311005Ge
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=org.postgresql.Driver
+      - SPRING_FLYWAY_URL=jdbc:postgresql://db:5432/finance_management_db
+      - SPRING_FLYWAY_USER=postgres
+      - SPRING_FLYWAY_PASSWORD=311005Ge
+    ports:
+      - 3000:3000
+    networks:
+      - cyberdata
+      
+networks:
+  cyberdata:
+    driver: bridge
