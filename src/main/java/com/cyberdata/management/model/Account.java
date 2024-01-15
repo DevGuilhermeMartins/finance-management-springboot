@@ -40,8 +40,6 @@ public class Account implements Serializable{
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate registerDate;
 	
-	private String role;
-	
 	@OneToMany(mappedBy = "account")
 	private List<Expense> expenses;
 }
